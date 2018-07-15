@@ -21,8 +21,7 @@ before_script:
 - psql -c "CREATE DATABASE demo LC_COLLATE 'en_US.UTF-8';" -U postgres
 - npm run db-build
 env:
-- PGPORT=5433
-- PG_URL=postgres://postgres@localhost:5433/ CXX=g++-4.8
+- PGPORT=5433 PG_URL=postgres://postgres@localhost:5433/ CXX=g++-4.8
 notifications:
   email: false
 deploy:
