@@ -1,5 +1,5 @@
 {
-  "name": "join-monster-cuz",
+  "name": "join-monster",
   "version": "2.0.17",
   "description": "A GraphQL to SQL query execution layer for batch data fetching.",
   "main": "dist/index.js",
@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dhenson02/join-monster-cuz.git"
+    "url": "git+https://github.com/dhenson02/join-monster.git"
   },
   "keywords": [
     "graphql",
