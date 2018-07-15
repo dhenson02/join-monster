@@ -1,48 +1,34 @@
 language: node_js
 dist: trusty
 node_js:
-  - 8
-  - 10
-
-deploy:
-  - provider: npm
-    skip_cleanup: true
-    email: lacooljay@gmail.com
-    # only tagged commits will trigger deploy. all other commits simply run the lint and tests
-    on:
-      tags: true
-      branch: master
-    # NPM API key, encrypted with public key crypto. only travis has the private key.
-    api_key:
-      secure: PcwMn5hXRyFOEV3RFp1MWMvZnj2T2nSJ2vV/8vdVNDL+QwVaQGICWLeUGbcMmtliowMVCpNswZ8+cVyg+HUlvdF8dlpNTzuHA4Cv1V/+RUfJbtTaZVPIezswtjbxcOxS69ZNCJbRJXoWojiYUSXzBjdGFHRWGFzFYbdhMgXYt8sgkN3FSdny7MdHMsOk5TISFdVu9XppFO4SCru1jf6iyXQe+6ZaH/XyI9BdPbQ3SPl7NpvLwJBSGeTdxaI779r74wRUBlBlIO52U7IsTb4zhES25E1+dMBc3mOGRScj4/wx6p4880jhJupDA/feQnkStdAjVDzMtqXNwmlRMcvQX5xD4cSHYTInMkO6Y3d3MsV9DX7LTVTX6x5oDrsHA6SkToL09w5OFB9FU2M6j7vqRLws1hv85seOsEwaqqYeYyBtlFSN0vKfvF4R3yZJ/3GPkKTvevNyZZQ1GN09ZQzKp2tkCHl/vKzXTb2HCD8ql8/lhaqX1qA8vC5X1SDNhAEIjqmjFJPa/IeT8lK219KWa4fURs9fQAhQO5f0r735TTEL0SY99BXrTXfiYLje5dGV4cM9ABp3ENLDJH1oMj9j+W0tZ0192/tJOdoKQ62vBlFxQ7MWe1A49PjqVNLBUGnuVyq7xAXHMF5Iwf5Pq2Pg7QUptin5QKxcutH057xDSn0=
-
+- 8
+- 10
 services:
-  - postgresql
-
+- postgresql
 addons:
-  postgresql: "10"
-  # need a C++ compiler for sqlite3
+  postgresql: '10'
   apt:
     update: true
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
-      - postgresql-10
-      - postgresql-client-10
-
+    - g++-4.8
+    - postgresql-10
+    - postgresql-client-10
 before_script:
-  # create the databases
-  - psql -c "CREATE DATABASE test1 LC_COLLATE 'en_US.UTF-8';" -U postgres
-  - psql -c "CREATE DATABASE test2 LC_COLLATE 'en_US.UTF-8';" -U postgres
-  - psql -c "CREATE DATABASE demo LC_COLLATE 'en_US.UTF-8';" -U postgres
-  # populate them with data
-  - npm run db-build
+- psql -c "CREATE DATABASE test1 LC_COLLATE 'en_US.UTF-8';" -U postgres
+- psql -c "CREATE DATABASE test2 LC_COLLATE 'en_US.UTF-8';" -U postgres
+- psql -c "CREATE DATABASE demo LC_COLLATE 'en_US.UTF-8';" -U postgres
+- npm run db-build
 env:
-  global:
-    - PGPORT=5433
-  - PG_URL=postgres://postgres@localhost/ CXX=g++-4.8
-
+- PGPORT=5433
+- PG_URL=postgres://postgres@localhost/ CXX=g++-4.8
 notifications:
   email: false
-
+deploy:
+  provider: npm
+  email: lacooljay@gmail.com
+  api_key:
+    secure: EHe3N7aQb2TcQRbjxdsyQDCNavm/aqFJq27ws5lmu0s0z1OktJ2bg+3Pa4ExuCr1WMBAz4u7KvTitOkboVvXE6XSu2FCABNQQTxWKLobvUgxaonZhX50eSG2VcoBUmktsjBhQPDAQ5F5gWlDZuk+iQ+5p3yD9K2APLMtV/5ni96mMNgMfoz7KsoDg46ziqoWE2UH0nHd7WKQbevEazGirrLHXTc50COY+qGFOm0I5V3sFqzGXTmkzmGkEcxDbIJH3aPwy9ywbmdi83xi9ftIrd5vB89a/Iabkd5gTTOSEJFSiNplhISJKumaB4EEqolpBiuyjSSna/ID4eMll5n3RIScUhCTgUYW+8BjfWxb136iqopfXP6wJtIYQympj4ljPa89keiwjyJKIM6AHuBaNkLfzbTWLPC63zQ0URCpChgSCcp/RQX0loHETgCSk77ghxIPA4q8mr+NHJWRKhhMwoZhds/LCFucDKrs12KAEG7O6dPZ+1m1HEKdPs3b4OVmDuLQk5cNs7UXADvuflO90TIpLVWytvwF6zLIoQFhLBJ2ladzSo9xpxWAjeTPE6Hcc9kIaQopzWLqjFMUk34K9TJ1Kflmo67Njgk0D7Eictb29ACch1qhEQ7YBM3a+IRwHVV4+icQCPOmccG+UOHywnsb9L8QduFgF2VNrl05ISE=
+  on:
+    repo: dhenson02/join-monster
